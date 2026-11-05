@@ -108,3 +108,4 @@ alc.exe /project:"." /packagecachepath:".\.alpackages" /out:".\SmartStock.app"
 1. Open the project folder in VS Code or Antigravity IDE.
 2. Ensure your target environment is specified in `.vscode/launch.json`.
 3. Press `F5` to start debugging or `Ctrl + F5` to run without debugging.
+
