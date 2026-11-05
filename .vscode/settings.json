@@ -1,0 +1,21 @@
+{
+  "al.enableCodeAnalysis": true,
+  "al.codeAnalyzers": [
+    "${CodeCop}",
+    "${PerTenantExtensionCop}"
+  ],
+  "al.ruleSetPath": "./.vscode/ruleset.json",
+  "al.assemblyProbingPaths": [
+    "./.netpackages"
+  ],
+  "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+  "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+  "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+  "CRS.ExtensionObjectNamePattern": "<Prefix> <BaseObjectName>",
+  "CRS.OnSaveAlFileAction": "Rename",
+  "CRS.ObjectNamePrefix": "SSK ",
+  "CRS.TableFieldNamePrefix": "SSK ",
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000
+}

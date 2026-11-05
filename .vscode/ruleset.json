@@ -1,0 +1,26 @@
+{
+  "name": "SmartStock Ruleset",
+  "description": "Ruleset for SmartStock Business Central AL development",
+  "rules": [
+    {
+      "id": "AA0072",
+      "action": "Info",
+      "justification": "Variable naming - informative suggestions"
+    },
+    {
+      "id": "AA0074",
+      "action": "Info",
+      "justification": "TextConst / Label formatting rules"
+    },
+    {
+      "id": "AA0215",
+      "action": "Warning",
+      "justification": "FlowFields should have Editable = false"
+    },
+    {
+      "id": "PTE0001",
+      "action": "Error",
+      "justification": "Field and Object IDs must remain within allocated PTE range"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "d003e496-c9d3-46a2-b877-7b1a9d5cba76",
+  "name": "SmartStock",
+  "publisher": "SmartStock Solutions",
+  "version": "1.0.0.0",
+  "brief": "Smart Inventory Management System for Business Central",
+  "description": "Streamlined inventory management with automated reordering, batch/lot expiry governance, reason-coded stock adjustments, and role-tailored dashboards.",
+  "privacyStatement": "https://github.com/SmartStock/privacy",
+  "EULA": "https://github.com/SmartStock/eula",
+  "help": "https://github.com/SmartStock/help",
+  "url": "https://github.com/SmartStock",
+  "contextSensitiveHelpUrl": "https://github.com/SmartStock/help",
+  "showMyCode": true,
+  "target": "Cloud",
+  "platform": "23.0.0.0",
+  "application": "23.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "13.0",
+  "features": [
+    "NoImplicitWith"
+  ],
+  "mandatoryAffixes": [
+    "SSK"
+  ]
+}

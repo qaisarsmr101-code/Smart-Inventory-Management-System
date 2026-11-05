@@ -1,0 +1,22 @@
+# Business Central AL Packages & Artifacts
+.alpackages/
+*.app
+.altestrunner/
+rad.json
+
+# VS Code User Workspace Overrides
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/ruleset.json
+
+# Windows / OS Noise
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Temporary / Scratch Files
+*.tmp
+*.log

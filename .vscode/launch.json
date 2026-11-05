@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Business Central Cloud Sandbox",
+      "type": "al",
+      "request": "launch",
+      "environmentType": "Sandbox",
+      "environmentName": "Sandbox",
+      "startupObjectId": 50106,
+      "startupObjectType": "Page",
+      "breakOnError": true,
+      "launchBrowser": true,
+      "enableLongTimeToHandleKey": true,
+      "enableSqlInformationDebugger": true
+    },
+    {
+      "name": "Local Docker / Container Sandbox",
+      "type": "al",
+      "request": "launch",
+      "server": "http://localhost",
+      "serverInstance": "BC",
+      "authentication": "Windows",
+      "startupObjectId": 50106,
+      "startupObjectType": "Page",
+      "breakOnError": true,
+      "launchBrowser": true,
+      "enableLongTimeToHandleKey": true
+    }
+  ]
+}
