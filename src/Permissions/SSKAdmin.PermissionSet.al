@@ -30,3 +30,4 @@ permissionset 50100 "SSK Admin"
         page "SSK Alert Log List" = X,
         codeunit "SSK Stock Adjustment Post" = X;
 }
+
