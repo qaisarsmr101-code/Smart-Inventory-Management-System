@@ -10,10 +10,9 @@
   "help": "https://github.com/SmartStock/help",
   "url": "https://github.com/SmartStock",
   "contextSensitiveHelpUrl": "https://github.com/SmartStock/help",
-  "showMyCode": true,
   "target": "Cloud",
-  "platform": "23.0.0.0",
-  "application": "23.0.0.0",
+  "platform": "1.0.0.0",
+  "application": "26.0.0.0",
   "idRanges": [
     {
       "from": 50100,
@@ -25,12 +24,8 @@
     "allowDownloadingSource": true,
     "includeSourceInSymbolFile": true
   },
-  "runtime": "13.0",
+  "runtime": "15.0",
   "features": [
     "NoImplicitWith"
-  ],
-  "mandatoryAffixes": [
-    "SSK"
   ]
 }
-

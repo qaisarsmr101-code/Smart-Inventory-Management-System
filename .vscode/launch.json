@@ -2,17 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Business Central Cloud Sandbox",
+      "name": "Business Central Cloud Sandbox (WAJSandbx)",
       "type": "al",
       "request": "launch",
       "environmentType": "Sandbox",
-      "environmentName": "Sandboxde",
-      "startupObjectId": 50106,
+      "environmentName": "WAJSandbx",
+      "startupObjectId": 50104,
       "startupObjectType": "Page",
-      "breakOnError": true,
+      "breakOnError": "All",
       "launchBrowser": true,
-      "enableLongTimeToHandleKey": true,
-      "enableSqlInformationDebugger": true
+      "enableLongRunningSqlStatements": true,
+      "enableSqlInformationDebugger": true,
+      "schemaUpdateMode": "ForceSync"
     },
     {
       "name": "Local Docker / Container Sandbox",
@@ -21,7 +22,7 @@
       "server": "http://localhost",
       "serverInstance": "BC",
       "authentication": "Windows",
-      "startupObjectId": 50106,
+      "startupObjectId": 50104,
       "startupObjectType": "Page",
       "breakOnError": true,
       "launchBrowser": true,
@@ -29,4 +30,3 @@
     }
   ]
 }
-

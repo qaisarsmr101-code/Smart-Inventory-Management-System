@@ -61,8 +61,8 @@ tableextension 50100 "SSK Item Ext" extends Item
     var
         AvailableQty: Decimal;
     begin
-        Rec.CalcFields(Inventory, "Qty. on Sales Order", "Qty. on Component Lines", "Qty. on Purchasing");
-        AvailableQty := Rec.Inventory - Rec."Qty. on Sales Order" - Rec."Qty. on Component Lines" + Rec."Qty. on Purchasing";
+        Rec.CalcFields(Inventory, "Qty. on Sales Order", "Qty. on Component Lines", "Qty. on Purch. Order");
+        AvailableQty := Rec.Inventory - Rec."Qty. on Sales Order" - Rec."Qty. on Component Lines" + Rec."Qty. on Purch. Order";
         exit(AvailableQty);
     end;
 

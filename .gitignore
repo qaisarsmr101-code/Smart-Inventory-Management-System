@@ -9,6 +9,7 @@ rad.json
 !.vscode/settings.json
 !.vscode/launch.json
 !.vscode/ruleset.json
+!.vscode/extensions.json
 
 # Windows / OS Noise
 Thumbs.db

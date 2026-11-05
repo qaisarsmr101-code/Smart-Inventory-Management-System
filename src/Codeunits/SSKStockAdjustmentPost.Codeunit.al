@@ -121,7 +121,7 @@ codeunit 50100 "SSK Stock Adjustment Post"
         ReservEntry."Source Subtype" := ItemJnlLine."Entry Type".AsInteger();
         ReservEntry."Source ID" := ItemJnlLine."Journal Template Name";
         ReservEntry."Source Batch Name" := ItemJnlLine."Journal Batch Name";
-        ReservEntry."Source Ref No." := ItemJnlLine."Line No.";
+        ReservEntry."Source Ref. No." := ItemJnlLine."Line No.";
         ReservEntry."Lot No." := LotNo;
         ReservEntry."Expiration Date" := ExpiryDate;
         ReservEntry."Item Tracking" := ReservEntry."Item Tracking"::"Lot No.";

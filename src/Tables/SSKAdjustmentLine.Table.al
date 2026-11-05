@@ -196,13 +196,16 @@ table 50103 "SSK Adjustment Line"
 
             trigger OnValidate()
             var
-                LotNoInfo: Record "Lot No. Information";
+                ItemLedgEntry: Record "Item Ledger Entry";
             begin
                 TestStatusDraft();
-                if ("Lot No." <> '') and ("Item No." <> '') then
-                    if LotNoInfo.Get("Item No.", "Variant Code", "Lot No.") then
-                        if LotNoInfo."Expiration Date" <> 0D then
-                            "Expiration Date" := LotNoInfo."Expiration Date";
+                if ("Lot No." <> '') and ("Item No." <> '') then begin
+                    ItemLedgEntry.SetRange("Item No.", "Item No.");
+                    ItemLedgEntry.SetRange("Lot No.", "Lot No.");
+                    ItemLedgEntry.SetFilter("Expiration Date", '<>%1', 0D);
+                    if ItemLedgEntry.FindFirst() then
+                        "Expiration Date" := ItemLedgEntry."Expiration Date";
+                end;
             end;
         }
         field(51; "Expiration Date"; Date)
