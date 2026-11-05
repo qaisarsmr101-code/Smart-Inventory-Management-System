@@ -104,3 +104,4 @@ table 50105 "SSK Alert Log"
         }
     }
 }
+

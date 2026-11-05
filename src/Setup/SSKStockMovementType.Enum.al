@@ -14,3 +14,4 @@ enum 50101 "SSK Stock Movement Type"
         Caption = 'Negative Adjustment (Stock Out)';
     }
 }
+

@@ -77,3 +77,4 @@ tableextension 50100 "SSK Item Ext" extends Item
         exit(SSKCalcAvailableInventory() <= Rec."SSK Min Safety Stock");
     end;
 }
+

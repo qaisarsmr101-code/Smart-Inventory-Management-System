@@ -26,3 +26,4 @@ enum 50102 "SSK Document Status"
         Caption = 'Posted';
     }
 }
+

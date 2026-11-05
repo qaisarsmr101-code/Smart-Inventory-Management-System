@@ -55,3 +55,4 @@ table 50101 "SSK Adjustment Reason"
         }
     }
 }
+

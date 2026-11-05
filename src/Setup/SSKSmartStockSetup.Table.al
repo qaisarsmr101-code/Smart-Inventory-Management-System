@@ -82,3 +82,4 @@ table 50100 "SSK SmartStock Setup"
         RecordHasBeenRead := true;
     end;
 }
+

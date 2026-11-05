@@ -26,3 +26,4 @@ enum 50100 "SSK Inventory Velocity"
         Caption = 'D - Non-Moving / Dead Stock';
     }
 }
+

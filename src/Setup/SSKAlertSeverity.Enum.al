@@ -18,3 +18,4 @@ enum 50103 "SSK Alert Severity"
         Caption = 'Critical';
     }
 }
+

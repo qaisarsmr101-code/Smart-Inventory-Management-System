@@ -26,3 +26,4 @@ tableextension 50101 "SSK Location Ext" extends Location
         }
     }
 }
+

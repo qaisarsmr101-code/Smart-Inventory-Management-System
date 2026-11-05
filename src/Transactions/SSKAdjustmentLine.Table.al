@@ -258,3 +258,4 @@ table 50103 "SSK Adjustment Line"
     var
         StockWarningMsg: Label 'Warning: Available inventory for Item %1 at Location "%2" is %3, which is less than requested reduction %4.', Comment = '%1=Item, %2=Location, %3=Current, %4=Requested';
 }
+
