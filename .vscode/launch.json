@@ -7,7 +7,7 @@
       "type": "al",
       "environmentType": "Sandbox",
       "environmentName": "Demo2",
-      "startupObjectId": 50104,
+      "startupObjectId": 50101,
       "startupObjectType": "Page",
       "breakOnError": "All",
       "enableLongRunningSqlStatements": true,
