@@ -1,8 +1,7 @@
-namespace SmartStock.RoleCenter;
+namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Item;
-using SmartStock.Setup;
-using SmartStock.Transactions;
+using SmartStock.Enums;
 
 table 50104 "SSK Activities Cue"
 {
@@ -70,4 +69,3 @@ table 50104 "SSK Activities Cue"
         }
     }
 }
-

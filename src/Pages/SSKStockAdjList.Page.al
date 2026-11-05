@@ -1,4 +1,6 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Pages;
+
+using SmartStock.Tables;
 
 page 50104 "SSK Stock Adj. List"
 {

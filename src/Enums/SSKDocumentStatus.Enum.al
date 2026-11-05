@@ -1,4 +1,4 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Enums;
 
 enum 50102 "SSK Document Status"
 {
@@ -26,4 +26,3 @@ enum 50102 "SSK Document Status"
         Caption = 'Posted';
     }
 }
-

@@ -1,4 +1,4 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Enums;
 
 enum 50103 "SSK Alert Severity"
 {
@@ -18,4 +18,3 @@ enum 50103 "SSK Alert Severity"
         Caption = 'Critical';
     }
 }
-

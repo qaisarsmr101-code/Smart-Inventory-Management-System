@@ -1,6 +1,7 @@
-namespace SmartStock.MasterData;
+namespace SmartStock.Pages;
 
 using Microsoft.Inventory.Location;
+using SmartStock.Tables;
 
 pageextension 50102 "SSK Location Card Ext" extends "Location Card"
 {

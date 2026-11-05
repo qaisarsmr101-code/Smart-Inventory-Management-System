@@ -1,4 +1,6 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Pages;
+
+using SmartStock.Tables;
 
 page 50103 "SSK Stock Adj. Subform"
 {

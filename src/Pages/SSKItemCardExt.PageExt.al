@@ -1,7 +1,7 @@
-namespace SmartStock.MasterData;
+namespace SmartStock.Pages;
 
 using Microsoft.Inventory.Item;
-using SmartStock.Transactions;
+using SmartStock.Tables;
 
 pageextension 50100 "SSK Item Card Ext" extends "Item Card"
 {

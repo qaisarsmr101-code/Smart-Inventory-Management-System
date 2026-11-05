@@ -1,4 +1,4 @@
-namespace SmartStock.MasterData;
+namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Location;
 using System.Security.AccessControl;
@@ -26,4 +26,3 @@ tableextension 50101 "SSK Location Ext" extends Location
         }
     }
 }
-

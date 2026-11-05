@@ -1,4 +1,4 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Enums;
 
 enum 50101 "SSK Stock Movement Type"
 {
@@ -14,4 +14,3 @@ enum 50101 "SSK Stock Movement Type"
         Caption = 'Negative Adjustment (Stock Out)';
     }
 }
-

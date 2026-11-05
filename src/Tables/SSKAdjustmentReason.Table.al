@@ -1,6 +1,7 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Tables;
 
 using Microsoft.Finance.GeneralLedger.Account;
+using SmartStock.Enums;
 
 table 50101 "SSK Adjustment Reason"
 {
@@ -55,4 +56,3 @@ table 50101 "SSK Adjustment Reason"
         }
     }
 }
-

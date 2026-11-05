@@ -1,8 +1,8 @@
-namespace SmartStock.Automation;
+namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Location;
-using SmartStock.Setup;
+using SmartStock.Enums;
 using System.Security.AccessControl;
 
 table 50105 "SSK Alert Log"
@@ -104,4 +104,3 @@ table 50105 "SSK Alert Log"
         }
     }
 }
-

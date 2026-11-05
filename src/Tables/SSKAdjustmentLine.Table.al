@@ -1,10 +1,10 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Ledger;
 using Microsoft.Inventory.Location;
 using Microsoft.Inventory.Tracking;
-using SmartStock.Setup;
+using SmartStock.Enums;
 
 table 50103 "SSK Adjustment Line"
 {
@@ -258,4 +258,3 @@ table 50103 "SSK Adjustment Line"
     var
         StockWarningMsg: Label 'Warning: Available inventory for Item %1 at Location "%2" is %3, which is less than requested reduction %4.', Comment = '%1=Item, %2=Location, %3=Current, %4=Requested';
 }
-

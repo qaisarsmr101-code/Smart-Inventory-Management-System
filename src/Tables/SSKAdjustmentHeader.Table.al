@@ -1,8 +1,8 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Tables;
 
 using Microsoft.Foundation.NoSeries;
 using Microsoft.Inventory.Location;
-using SmartStock.Setup;
+using SmartStock.Enums;
 using System.Security.AccessControl;
 
 table 50102 "SSK Adjustment Header"
@@ -184,4 +184,3 @@ table 50102 "SSK Adjustment Header"
         NoSeries: Codeunit "No. Series";
         CannotDeleteErr: Label 'Cannot delete Adjustment Document %1 because its status is %2. Only Draft or Rejected documents can be deleted.', Comment = '%1 = Document No., %2 = Status';
 }
-

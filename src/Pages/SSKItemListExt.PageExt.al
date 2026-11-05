@@ -1,6 +1,7 @@
-namespace SmartStock.MasterData;
+namespace SmartStock.Pages;
 
 using Microsoft.Inventory.Item;
+using SmartStock.Tables;
 
 pageextension 50101 "SSK Item List Ext" extends "Item List"
 {

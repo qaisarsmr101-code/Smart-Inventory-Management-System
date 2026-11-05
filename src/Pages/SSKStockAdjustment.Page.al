@@ -1,6 +1,7 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Pages;
 
-using SmartStock.Setup;
+using SmartStock.Codeunits;
+using SmartStock.Tables;
 
 page 50102 "SSK Stock Adjustment"
 {

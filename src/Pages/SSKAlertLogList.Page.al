@@ -1,4 +1,6 @@
-namespace SmartStock.Automation;
+namespace SmartStock.Pages;
+
+using SmartStock.Tables;
 
 page 50107 "SSK Alert Log List"
 {

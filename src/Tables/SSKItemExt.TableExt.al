@@ -1,8 +1,8 @@
-namespace SmartStock.MasterData;
+namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Ledger;
-using SmartStock.Setup;
+using SmartStock.Enums;
 
 tableextension 50100 "SSK Item Ext" extends Item
 {
@@ -77,4 +77,3 @@ tableextension 50100 "SSK Item Ext" extends Item
         exit(SSKCalcAvailableInventory() <= Rec."SSK Min Safety Stock");
     end;
 }
-

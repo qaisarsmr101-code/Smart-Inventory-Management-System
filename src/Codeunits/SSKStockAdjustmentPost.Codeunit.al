@@ -1,11 +1,12 @@
-namespace SmartStock.Transactions;
+namespace SmartStock.Codeunits;
 
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Journal;
 using Microsoft.Inventory.Ledger;
 using Microsoft.Inventory.Posting;
 using Microsoft.Inventory.Tracking;
-using SmartStock.Setup;
+using SmartStock.Enums;
+using SmartStock.Tables;
 
 codeunit 50100 "SSK Stock Adjustment Post"
 {

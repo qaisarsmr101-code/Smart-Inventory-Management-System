@@ -1,4 +1,6 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Pages;
+
+using SmartStock.Tables;
 
 page 50101 "SSK Adjustment Reasons"
 {

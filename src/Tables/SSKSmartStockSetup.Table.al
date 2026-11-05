@@ -1,4 +1,4 @@
-namespace SmartStock.Setup;
+namespace SmartStock.Tables;
 
 using Microsoft.Foundation.NoSeries;
 using Microsoft.Inventory.Location;
@@ -82,4 +82,3 @@ table 50100 "SSK SmartStock Setup"
         RecordHasBeenRead := true;
     end;
 }
-
