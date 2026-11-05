@@ -6,7 +6,7 @@
       "type": "al",
       "request": "launch",
       "environmentType": "Sandbox",
-      "environmentName": "Sandbox",
+      "environmentName": "Sandboxde",
       "startupObjectId": 50106,
       "startupObjectType": "Page",
       "breakOnError": true,
@@ -29,3 +29,4 @@
     }
   ]
 }
+
