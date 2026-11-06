@@ -89,6 +89,9 @@ d:\inventory management system\
 3. **Full Security Compliance:**
    * Includes modern AL `permissionset` objects granting full CRUD and execution rights to authorized users while preventing unauthorized schema access.
 
+4. **Location Restriction Guards:**
+   * Locations can be flagged with `SSK Disallow Manual Adjust` to restrict manual stock changes, verified across header assignment, line entry, and the final posting pipeline.
+
 ---
 
 ## 🚀 Getting Started

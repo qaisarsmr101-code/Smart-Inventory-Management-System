@@ -3,6 +3,7 @@ namespace SmartStock.Codeunits;
 using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Journal;
 using Microsoft.Inventory.Ledger;
+using Microsoft.Inventory.Location;
 using Microsoft.Inventory.Posting;
 using Microsoft.Inventory.Tracking;
 using SmartStock.Enums;
@@ -21,6 +22,7 @@ codeunit 50100 "SSK Stock Adjustment Post"
     var
         Line: Record "SSK Adjustment Line";
         SmartStockSetup: Record "SSK SmartStock Setup";
+        Location: Record Location;
         ItemJnlPostLine: Codeunit "Item Jnl.-Post Line";
         ItemJnlLine: Record "Item Journal Line";
         LineCount: Integer;
@@ -52,6 +54,11 @@ codeunit 50100 "SSK Stock Adjustment Post"
             Line.TestField(Quantity);
             if Line.Quantity <= 0 then
                 Error(QuantityMustBePositiveErr, Line."Line No.");
+
+            if Line."Location Code" <> '' then begin
+                Location.Get(Line."Location Code");
+                Location.SSKCheckManualAdjustAllowed();
+            end;
 
             Clear(ItemJnlLine);
             ItemJnlLine.Init();

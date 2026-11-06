@@ -88,7 +88,7 @@ table 50103 "SSK Adjustment Line"
                 TestStatusDraft();
                 if "Location Code" <> '' then begin
                     Location.Get("Location Code");
-                    Location.TestField("SSK Disallow Manual Adjust", false);
+                    Location.SSKCheckManualAdjustAllowed();
                 end;
             end;
         }

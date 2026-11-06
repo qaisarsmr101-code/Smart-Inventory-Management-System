@@ -51,7 +51,7 @@ table 50102 "SSK Adjustment Header"
                 TestField(Status, Status::Draft);
                 if "Location Code" <> '' then begin
                     Location.Get("Location Code");
-                    Location.TestField("SSK Disallow Manual Adjust", false);
+                    Location.SSKCheckManualAdjustAllowed();
                 end;
             end;
         }

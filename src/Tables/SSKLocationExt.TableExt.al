@@ -25,4 +25,9 @@ tableextension 50101 "SSK Location Ext" extends Location
             DataClassification = CustomerContent;
         }
     }
+
+    procedure SSKCheckManualAdjustAllowed()
+    begin
+        Rec.TestField("SSK Disallow Manual Adjust", false);
+    end;
 }
