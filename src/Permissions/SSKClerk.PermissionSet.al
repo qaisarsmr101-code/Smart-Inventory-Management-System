@@ -2,6 +2,7 @@ namespace SmartStock.Permissions;
 
 using SmartStock.Codeunits;
 using SmartStock.Pages;
+using SmartStock.Reports;
 using SmartStock.Tables;
 
 permissionset 50101 "SSK Clerk"
@@ -21,7 +22,10 @@ permissionset 50101 "SSK Clerk"
         page "SSK Stock Adjustment" = X,
         page "SSK Stock Adj. Subform" = X,
         page "SSK Stock Adj. List" = X,
+        page "SSK Activities Cue" = X,
         page "SSK Alert Log List" = X,
-        codeunit "SSK Stock Adjustment Post" = X;
+        codeunit "SSK Stock Adjustment Post" = X,
+        codeunit "SSK Stock Alert Mgt" = X,
+        report "SSK Stock Adjustment Report" = X;
 }
 

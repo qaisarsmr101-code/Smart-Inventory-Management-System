@@ -1,6 +1,7 @@
 namespace SmartStock.Tables;
 
 using Microsoft.Inventory.Item;
+using Microsoft.Inventory.Ledger;
 using SmartStock.Enums;
 
 table 50104 "SSK Activities Cue"
@@ -68,4 +69,30 @@ table 50104 "SSK Activities Cue"
             Clustered = true;
         }
     }
+
+    procedure CalculateCueValues()
+    var
+        Item: Record Item;
+        ItemLedgEntry: Record "Item Ledger Entry";
+    begin
+        "Low Stock Items" := 0;
+        Item.SetRange("SSK SmartStock Managed", true);
+        if Item.FindSet() then
+            repeat
+                if Item.SSKIsBelowReorderPoint() then
+                    "Low Stock Items" += 1;
+            until Item.Next() = 0;
+
+        ItemLedgEntry.Reset();
+        ItemLedgEntry.SetRange(Open, true);
+        ItemLedgEntry.SetRange(Positive, true);
+        ItemLedgEntry.SetFilter("Expiration Date", '<>%1&<%2', 0D, Today());
+        "Expired Batches" := ItemLedgEntry.Count();
+
+        ItemLedgEntry.Reset();
+        ItemLedgEntry.SetRange(Open, true);
+        ItemLedgEntry.SetRange(Positive, true);
+        ItemLedgEntry.SetRange("Expiration Date", Today(), Today() + 30);
+        "Batches Expiring in 30 Days" := ItemLedgEntry.Count();
+    end;
 }

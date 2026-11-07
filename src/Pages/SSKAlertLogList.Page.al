@@ -1,5 +1,6 @@
 namespace SmartStock.Pages;
 
+using SmartStock.Codeunits;
 using SmartStock.Tables;
 
 page 50107 "SSK Alert Log List"
@@ -74,6 +75,23 @@ page 50107 "SSK Alert Log List"
     {
         area(Processing)
         {
+            action(ScanNow)
+            {
+                Caption = 'Scan Inventory Now';
+                Image = Calculate;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Executes a comprehensive stock monitoring scan for low inventory and expiring batches.';
+
+                trigger OnAction()
+                var
+                    AlertMgt: Codeunit "SSK Stock Alert Mgt";
+                begin
+                    AlertMgt.RunStockMonitoring(true);
+                    CurrPage.Update(false);
+                end;
+            }
             action(AcknowledgeSelected)
             {
                 Caption = 'Acknowledge';

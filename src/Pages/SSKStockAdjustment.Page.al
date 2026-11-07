@@ -1,6 +1,7 @@
 namespace SmartStock.Pages;
 
 using SmartStock.Codeunits;
+using SmartStock.Reports;
 using SmartStock.Tables;
 
 page 50102 "SSK Stock Adjustment"
@@ -205,6 +206,24 @@ page 50102 "SSK Stock Adjustment"
                     PostCodeunit: Codeunit "SSK Stock Adjustment Post";
                 begin
                     PostCodeunit.PostAdjustment(Rec);
+                end;
+            }
+            action(Print)
+            {
+                Caption = 'Print Document';
+                Image = Print;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = "Report";
+                ToolTip = 'Generates an audit-ready printable report for this stock adjustment document.';
+
+                trigger OnAction()
+                var
+                    AdjHeader: Record "SSK Adjustment Header";
+                begin
+                    AdjHeader := Rec;
+                    AdjHeader.SetRecFilter();
+                    Report.Run(Report::"SSK Stock Adjustment Report", true, false, AdjHeader);
                 end;
             }
         }

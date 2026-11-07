@@ -15,6 +15,9 @@
 * **Real-time Safety Stock & Reorder Triggers:** Dynamic minimum and maximum buffer thresholds per item.
 * **Two-Tier Stock Adjustment Workflow:** Reason-coded adjustment documents with automated supervisor approval thresholds.
 * **Audit-Safe Posting via Codeunit 22 (`Item Jnl.-Post Line`):** Strict financial and inventory ledger integrity without reinventing custom ledger tables.
+* **Real-time KPI Activities Cues & Health Dashboard:** Interactive cues tracking low-stock items, pending approvals, and expiring lots.
+* **Background Automated Alert Engine:** Job queue-ready monitoring (`SSK Stock Alert Mgt`) flagging breached thresholds and batch expirations.
+* **Audit-Ready Printable Reports:** Integrated RDLC stock adjustment reports for documentation and regulatory audit trails.
 * **Lot & Batch Expiry Tracking (FEFO):** Prevents stock spoilage and alerts managers to lots nearing expiration.
 * **Role-Tailored Security & Permissions:** Pre-configured `SSK Admin` and `SSK Clerk` permission sets adhering to modern Business Central security models.
 
@@ -33,7 +36,8 @@ d:\inventory management system\
 │
 ├── src/
 │   ├── Codeunits/
-│   │   └── SSKStockAdjustmentPost.Codeunit.al # Core posting engine
+│   │   ├── SSKStockAdjustmentPost.Codeunit.al # Core posting engine
+│   │   └── SSKStockAlertMgt.Codeunit.al       # Automated stock & expiry alert engine
 │   │
 │   ├── Enums/
 │   │   ├── SSKAlertSeverity.Enum.al           # Info, Warning, Critical
@@ -42,11 +46,13 @@ d:\inventory management system\
 │   │   └── SSKStockMovementType.Enum.al       # Positive / Negative adjustments
 │   │
 │   ├── Pages/
+│   │   ├── SSKActivitiesCue.Page.al           # Interactive Role Center activities cue
 │   │   ├── SSKAdjustmentReasons.Page.al       # Reason code setup list
-│   │   ├── SSKAlertLogList.Page.al            # Alert history & log list
+│   │   ├── SSKAlertLogList.Page.al            # Alert history & real-time scanner
 │   │   ├── SSKItemCardExt.PageExt.al          # Item Card extensions
 │   │   ├── SSKItemListExt.PageExt.al          # Item List extensions
 │   │   ├── SSKLocationCardExt.PageExt.al      # Location Card extensions
+│   │   ├── SSKLocationListExt.PageExt.al      # Location List extensions
 │   │   ├── SSKSmartStockSetup.Page.al         # System configuration card
 │   │   ├── SSKStockAdjList.Page.al            # Adjustment document overview
 │   │   ├── SSKStockAdjSubform.Page.al         # Adjustment lines subform
@@ -56,18 +62,19 @@ d:\inventory management system\
 │   │   ├── SSKAdmin.PermissionSet.al          # Administrator permission set
 │   │   └── SSKClerk.PermissionSet.al          # Floor clerk permission set
 │   │
-│   ├── Tables/
-│   │   ├── SSKActivitiesCue.Table.al          # Role center KPI cue table
-│   │   ├── SSKAdjustmentHeader.Table.al       # Adjustment document header
-│   │   ├── SSKAdjustmentLine.Table.al         # Adjustment document lines
-│   │   ├── SSKAdjustmentReason.Table.al       # Movement reason dictionary
-│   │   ├── SSKAlertLog.Table.al               # Background alert audit log
-│   │   ├── SSKItemExt.TableExt.al             # Item (Table 27) extension
-│   │   ├── SSKLocationExt.TableExt.al         # Location (Table 14) extension
-│   │   └── SSKSmartStockSetup.Table.al        # Configuration singleton table
+│   ├── Reports/
+│   │   ├── SSKStockAdjustment.Report.al       # Printable stock adjustment document
+│   │   └── SSKStockAdjustment.rdlc            # Standard RDLC report layout
 │   │
-│   ├── Reports/                               # Analytical & audit reports
-│   └── Automation/                            # Background Job Queue codeunits
+│   └── Tables/
+│       ├── SSKActivitiesCue.Table.al          # Role center KPI cue table
+│       ├── SSKAdjustmentHeader.Table.al       # Adjustment document header
+│       ├── SSKAdjustmentLine.Table.al         # Adjustment document lines
+│       ├── SSKAdjustmentReason.Table.al       # Movement reason dictionary
+│       ├── SSKAlertLog.Table.al               # Background alert audit log
+│       ├── SSKItemExt.TableExt.al             # Item (Table 27) extension
+│       ├── SSKLocationExt.TableExt.al         # Location (Table 14) extension
+│       └── SSKSmartStockSetup.Table.al        # Configuration singleton table
 │
 ├── .gitignore
 ├── app.json                                   # App manifest
