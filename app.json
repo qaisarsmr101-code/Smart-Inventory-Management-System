@@ -2,7 +2,7 @@
   "id": "d003e496-c9d3-46a2-b877-7b1a9d5cba76",
   "name": "SmartStock",
   "publisher": "SmartStock Solutions",
-  "version": "1.0.1.0",
+  "version": "1.0.2.0",
   "brief": "Smart Inventory Management System for Business Central",
   "description": "Streamlined inventory management with automated reordering, batch/lot expiry governance, reason-coded stock adjustments, and role-tailored dashboards.",
   "help": "https://github.com/qaisarsmr101-code/Smart-Inventory-Management-System",

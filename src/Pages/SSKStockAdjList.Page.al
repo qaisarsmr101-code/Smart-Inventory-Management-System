@@ -1,5 +1,6 @@
 namespace SmartStock.Pages;
 
+using SmartStock.Reports;
 using SmartStock.Tables;
 
 page 50104 "SSK Stock Adj. List"
@@ -63,6 +64,55 @@ page 50104 "SSK Stock Adj. List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the user who approved this adjustment.';
                 }
+            }
+        }
+    }
+
+    views
+    {
+        view(PendingApprovalView)
+        {
+            Caption = 'Pending Approval';
+            Filters = where(Status = const(PendingApproval));
+        }
+        view(DraftView)
+        {
+            Caption = 'Drafts';
+            Filters = where(Status = const(Draft));
+        }
+        view(ApprovedView)
+        {
+            Caption = 'Ready to Post (Approved)';
+            Filters = where(Status = const(Approved));
+        }
+        view(PostedView)
+        {
+            Caption = 'Posted Archive';
+            Filters = where(Status = const(Posted));
+        }
+    }
+
+    actions
+    {
+        area(Reporting)
+        {
+            action(PrintSelected)
+            {
+                Caption = 'Print Document';
+                Image = Print;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = "Report";
+                ToolTip = 'Generates an audit-ready printable report for the selected stock adjustment document.';
+
+                trigger OnAction()
+                var
+                    AdjHeader: Record "SSK Adjustment Header";
+                begin
+                    AdjHeader := Rec;
+                    AdjHeader.SetRecFilter();
+                    Report.Run(Report::"SSK Stock Adjustment Report", true, false, AdjHeader);
+                end;
             }
         }
     }

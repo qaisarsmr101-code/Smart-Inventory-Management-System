@@ -112,3 +112,4 @@ page 50105 "SSK Activities Cue"
         Rec.CalculateCueValues();
     end;
 }
+

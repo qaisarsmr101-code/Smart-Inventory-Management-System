@@ -26,3 +26,4 @@ pageextension 50103 "SSK Location List Ext" extends "Location List"
         }
     }
 }
+

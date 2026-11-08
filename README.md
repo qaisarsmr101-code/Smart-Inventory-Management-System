@@ -16,6 +16,7 @@
 * **Two-Tier Stock Adjustment Workflow:** Reason-coded adjustment documents with automated supervisor approval thresholds.
 * **Audit-Safe Posting via Codeunit 22 (`Item Jnl.-Post Line`):** Strict financial and inventory ledger integrity without reinventing custom ledger tables.
 * **Real-time KPI Activities Cues & Health Dashboard:** Interactive cues tracking low-stock items, pending approvals, and expiring lots.
+* **Dedicated SmartStock Manager Role Center & Profile:** Complete Role Center dashboard (`SSK Role Center`) and profile (`SSK SmartStock Manager`) customized for inventory operatives and warehouse supervisors.
 * **Background Automated Alert Engine:** Job queue-ready monitoring (`SSK Stock Alert Mgt`) flagging breached thresholds and batch expirations.
 * **Audit-Ready Printable Reports:** Integrated RDLC stock adjustment reports for documentation and regulatory audit trails.
 * **Lot & Batch Expiry Tracking (FEFO):** Prevents stock spoilage and alerts managers to lots nearing expiration.
@@ -53,14 +54,18 @@ d:\inventory management system\
 │   │   ├── SSKItemListExt.PageExt.al          # Item List extensions
 │   │   ├── SSKLocationCardExt.PageExt.al      # Location Card extensions
 │   │   ├── SSKLocationListExt.PageExt.al      # Location List extensions
+│   │   ├── SSKRoleCenter.Page.al              # Dedicated Role Center dashboard
 │   │   ├── SSKSmartStockSetup.Page.al         # System configuration card
-│   │   ├── SSKStockAdjList.Page.al            # Adjustment document overview
+│   │   ├── SSKStockAdjList.Page.al            # Adjustment document overview & views
 │   │   ├── SSKStockAdjSubform.Page.al         # Adjustment lines subform
 │   │   └── SSKStockAdjustment.Page.al         # Main adjustment document card
 │   │
 │   ├── Permissions/
 │   │   ├── SSKAdmin.PermissionSet.al          # Administrator permission set
 │   │   └── SSKClerk.PermissionSet.al          # Floor clerk permission set
+│   │
+│   ├── Profiles/
+│   │   └── SSKSmartStockManager.Profile.al    # SmartStock Inventory Manager profile
 │   │
 │   ├── Reports/
 │   │   ├── SSKStockAdjustment.Report.al       # Printable stock adjustment document

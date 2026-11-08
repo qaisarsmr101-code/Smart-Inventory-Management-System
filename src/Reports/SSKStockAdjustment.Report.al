@@ -58,3 +58,4 @@ report 50100 "SSK Stock Adjustment Report"
         }
     }
 }
+

@@ -29,6 +29,7 @@ permissionset 50100 "SSK Admin"
         page "SSK Stock Adj. Subform" = X,
         page "SSK Stock Adj. List" = X,
         page "SSK Activities Cue" = X,
+        page "SSK Role Center" = X,
         page "SSK Alert Log List" = X,
         codeunit "SSK Stock Adjustment Post" = X,
         codeunit "SSK Stock Alert Mgt" = X,

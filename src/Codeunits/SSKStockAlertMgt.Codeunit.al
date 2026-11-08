@@ -134,3 +134,4 @@ codeunit 50101 "SSK Stock Alert Mgt"
         ExpiredLotAlertTxt: Label 'Critical: Lot %1 for Item %2 expired on %3 (Remaining Quantity: %4).', Comment = '%1=Lot, %2=Item, %3=Date, %4=Qty';
         NearExpiryLotAlertTxt: Label 'Warning: Lot %1 for Item %2 will expire on %3 within %4 days (Qty: %5).', Comment = '%1=Lot, %2=Item, %3=Date, %4=Days, %5=Qty';
 }
+
