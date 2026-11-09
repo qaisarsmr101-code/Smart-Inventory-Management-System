@@ -4,6 +4,12 @@ using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Ledger;
 using SmartStock.Enums;
 
+/// <summary>
+/// TableExtension 50100 "SSK Item Ext" extends Item (Table 27)
+/// ==========================================================
+/// Augments standard Business Central item records with SmartStock replenishment,
+/// safety stock thresholds, velocity tiers (ABC analysis), and expiration FlowFields.
+/// </summary>
 tableextension 50100 "SSK Item Ext" extends Item
 {
     fields
@@ -42,6 +48,7 @@ tableextension 50100 "SSK Item Ext" extends Item
             Caption = 'SmartStock Date Filter';
             FieldClass = FlowFilter;
         }
+        // FlowField calculating sum of expired inventory dynamically based on date filter
         field(50106; "SSK Total Expired Qty"; Decimal)
         {
             Caption = 'Total Expired Quantity';
@@ -57,6 +64,11 @@ tableextension 50100 "SSK Item Ext" extends Item
         }
     }
 
+    /// <summary>
+    /// Calculates net available inventory taking into account current on-hand stock,
+    /// committed sales orders, production component consumption, and incoming purchase orders.
+    /// Formula: Inventory - Qty. on Sales Order - Qty. on Component Lines + Qty. on Purch. Order
+    /// </summary>
     procedure SSKCalcAvailableInventory(): Decimal
     var
         AvailableQty: Decimal;
@@ -66,6 +78,10 @@ tableextension 50100 "SSK Item Ext" extends Item
         exit(AvailableQty);
     end;
 
+    /// <summary>
+    /// Determines whether the item has breached its minimum safety buffer.
+    /// Returns true if managed under SmartStock and available quantity <= minimum threshold.
+    /// </summary>
     procedure SSKIsBelowReorderPoint(): Boolean
     begin
         if not Rec."SSK SmartStock Managed" then

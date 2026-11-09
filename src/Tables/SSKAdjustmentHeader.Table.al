@@ -5,6 +5,16 @@ using Microsoft.Inventory.Location;
 using SmartStock.Enums;
 using System.Security.AccessControl;
 
+/// <summary>
+/// Table 50102 "SSK Adjustment Header"
+/// ===================================
+/// Represents the master document header for inventory adjustments.
+/// Governs:
+/// - Document number series assignment.
+/// - Approval workflow status (Draft -> PendingApproval -> Approved/Rejected -> Posted).
+/// - Default location, reason code, and posting dates.
+/// - Aggregated FlowFields calculating live total quantity and financial valuation.
+/// </summary>
 table 50102 "SSK Adjustment Header"
 {
     Caption = 'SmartStock Adjustment Header';
@@ -21,6 +31,7 @@ table 50102 "SSK Adjustment Header"
 
             trigger OnValidate()
             begin
+                // Validate manual document number against number series configuration
                 if "No." <> xRec."No." then begin
                     SmartStockSetup.GetRecordOnce();
                     NoSeries.TestManual(SmartStockSetup."Adjustment Nos.");
@@ -35,6 +46,7 @@ table 50102 "SSK Adjustment Header"
 
             trigger OnValidate()
             begin
+                // Prevent modification once document is submitted or approved
                 TestField(Status, Status::Draft);
             end;
         }
@@ -49,6 +61,7 @@ table 50102 "SSK Adjustment Header"
                 Location: Record Location;
             begin
                 TestField(Status, Status::Draft);
+                // Restrict manual adjustments on locations marked as restricted
                 if "Location Code" <> '' then begin
                     Location.Get("Location Code");
                     Location.SSKCheckManualAdjustAllowed();
@@ -79,6 +92,7 @@ table 50102 "SSK Adjustment Header"
             DataClassification = CustomerContent;
             Editable = false;
         }
+        // FlowField: Computes the sum of all line amounts dynamically without storing duplicate data
         field(20; "Total Cost Amount"; Decimal)
         {
             Caption = 'Total Cost Amount';
@@ -87,6 +101,7 @@ table 50102 "SSK Adjustment Header"
             CalcFormula = sum("SSK Adjustment Line"."Total Amount" where("Document No." = field("No.")));
             Editable = false;
         }
+        // FlowField: Computes the aggregate physical quantity across all adjustment lines
         field(21; "Total Quantity"; Decimal)
         {
             Caption = 'Total Quantity';
@@ -150,6 +165,7 @@ table 50102 "SSK Adjustment Header"
 
     trigger OnInsert()
     begin
+        // Automatically fetch next number from configured series if empty
         if "No." = '' then begin
             SmartStockSetup.GetRecordOnce();
             SmartStockSetup.TestField("Adjustment Nos.");
@@ -161,6 +177,7 @@ table 50102 "SSK Adjustment Header"
 #pragma warning restore AL0433
         end;
 
+        // Stamp audit tracking fields on creation
         "Created By User ID" := CopyStr(UserId(), 1, MaxStrLen("Created By User ID"));
         "Created DateTime" := CurrentDateTime();
         "Posting Date" := WorkDate();
@@ -171,9 +188,11 @@ table 50102 "SSK Adjustment Header"
     var
         AdjustmentLine: Record "SSK Adjustment Line";
     begin
+        // Audit Protection: Block deletion of any submitted, approved, or posted adjustments
         if not (Status in [Status::Draft, Status::Rejected]) then
             Error(CannotDeleteErr, "No.", Status);
 
+        // Cascade delete all associated line records
         AdjustmentLine.SetRange("Document No.", "No.");
         if not AdjustmentLine.IsEmpty() then
             AdjustmentLine.DeleteAll(true);

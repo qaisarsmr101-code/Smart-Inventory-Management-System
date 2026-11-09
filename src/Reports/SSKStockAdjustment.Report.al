@@ -2,6 +2,16 @@ namespace SmartStock.Reports;
 
 using SmartStock.Tables;
 
+/// <summary>
+/// Report 50100 "SSK Stock Adjustment Report"
+/// ==========================================
+/// Formal audit report and printable voucher for stock adjustment transactions.
+/// Dataset Architecture:
+/// - Primary DataItem: Header ("SSK Adjustment Header") - Extracts document number, posting date,
+///   warehouse location, reason code, total cost valuation, and approvals.
+/// - Nested DataItem: Line ("SSK Adjustment Line") - Iterates over lines linked via Document No.,
+///   exposing items, variants, movement types, quantities, unit costs, and lot expiration dates.
+/// </summary>
 report 50100 "SSK Stock Adjustment Report"
 {
     Caption = 'SmartStock Adjustment Document';

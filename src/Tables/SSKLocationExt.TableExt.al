@@ -3,6 +3,14 @@ namespace SmartStock.Tables;
 using Microsoft.Inventory.Location;
 using System.Security.AccessControl;
 
+/// <summary>
+/// TableExtension 50101 "SSK Location Ext" extends Location (Table 14)
+/// ==============================================================
+/// Enhances warehouse locations with operational attributes:
+/// - Identification of central regional distribution hubs.
+/// - Responsible storekeeper user identification.
+/// - Manual adjustment restriction switch to prevent unscheduled floor adjustments.
+/// </summary>
 tableextension 50101 "SSK Location Ext" extends Location
 {
     fields
@@ -26,6 +34,10 @@ tableextension 50101 "SSK Location Ext" extends Location
         }
     }
 
+    /// <summary>
+    /// Guard procedure: Throws an error if manual stock movements are restricted on this location.
+    /// Used by adjustment headers, lines, and the posting codeunit to maintain warehouse compliance.
+    /// </summary>
     procedure SSKCheckManualAdjustAllowed()
     begin
         Rec.TestField("SSK Disallow Manual Adjust", false);

@@ -10,3 +10,4 @@ profile "SSK SmartStock Manager"
     Enabled = true;
     Promoted = true;
 }
+

@@ -6,6 +6,16 @@ using Microsoft.Inventory.Location;
 using Microsoft.Inventory.Tracking;
 using SmartStock.Enums;
 
+/// <summary>
+/// Table 50103 "SSK Adjustment Line"
+/// =================================
+/// Sub-document line table capturing granular stock movement instructions.
+/// Key functions:
+/// - Item specification, unit of measure, and unit cost inheritance.
+/// - Exact cost-application via "Applies-to Entry" (Item Ledger Entry table relation).
+/// - Lot tracking and FEFO expiration date propagation.
+/// - Pre-posting physical inventory checks preventing inadvertent negative warehouse balances.
+/// </summary>
 table 50103 "SSK Adjustment Line"
 {
     Caption = 'SmartStock Adjustment Line';
@@ -43,12 +53,14 @@ table 50103 "SSK Adjustment Line"
                     exit;
                 end;
 
+                // Inherit standard master data from Item card
                 Item.Get("Item No.");
                 Item.TestField(Blocked, false);
                 Description := Item.Description;
                 "Unit of Measure Code" := Item."Base Unit of Measure";
                 "Unit Cost" := Item."Unit Cost";
 
+                // Inherit default location and reason code established at header level
                 if Header.Get("Document No.") then begin
                     if Header."Location Code" <> '' then
                         "Location Code" := Header."Location Code";
@@ -165,6 +177,7 @@ table 50103 "SSK Adjustment Line"
                 end;
             end;
         }
+        // Exact Cost Reversing & Application Link
         field(40; "Applies-to Entry"; Integer)
         {
             Caption = 'Applies-to Entry';
@@ -180,6 +193,7 @@ table 50103 "SSK Adjustment Line"
                 ItemLedgEntry: Record "Item Ledger Entry";
             begin
                 TestStatusDraft();
+                // Pull exact original cost and lot metadata from selected positive entry
                 if "Applies-to Entry" <> 0 then begin
                     ItemLedgEntry.Get("Applies-to Entry");
                     "Unit Cost" := ItemLedgEntry."Cost Amount (Actual)" / ItemLedgEntry.Quantity;
@@ -199,6 +213,7 @@ table 50103 "SSK Adjustment Line"
                 ItemLedgEntry: Record "Item Ledger Entry";
             begin
                 TestStatusDraft();
+                // Auto-fetch expiration date for existing lot if known
                 if ("Lot No." <> '') and ("Item No." <> '') then begin
                     ItemLedgEntry.SetRange("Item No.", "Item No.");
                     ItemLedgEntry.SetRange("Lot No.", "Lot No.");
@@ -231,6 +246,9 @@ table 50103 "SSK Adjustment Line"
         }
     }
 
+    /// <summary>
+    /// Restricts line alterations if the parent document has already been submitted or posted.
+    /// </summary>
     local procedure TestStatusDraft()
     var
         Header: Record "SSK Adjustment Header";
@@ -239,11 +257,18 @@ table 50103 "SSK Adjustment Line"
             Header.TestField(Status, Header.Status::Draft);
     end;
 
+    /// <summary>
+    /// Recalculates total financial impact of this line.
+    /// </summary>
     local procedure UpdateTotalAmount()
     begin
         "Total Amount" := Round(Quantity * "Unit Cost", 0.01);
     end;
 
+    /// <summary>
+    /// Checks available warehouse inventory before registering negative adjustments.
+    /// Warns the user if requested downward adjustment exceeds physical stock.
+    /// </summary>
     local procedure VerifyAvailableStock()
     var
         Item: Record Item;

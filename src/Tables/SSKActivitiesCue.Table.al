@@ -4,6 +4,14 @@ using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Ledger;
 using SmartStock.Enums;
 
+/// <summary>
+/// Table 50104 "SSK Activities Cue"
+/// ================================
+/// Singleton cue table serving as the data source for Role Center activities.
+/// Combines:
+/// - FlowFields for real-time document counts (Pending Approvals, Drafts, Out of Stock).
+/// - Dynamic metric calculation for complex criteria (Low Stock Items, Expired Batches, Expiring Lots).
+/// </summary>
 table 50104 "SSK Activities Cue"
 {
     Caption = 'SmartStock Activities Cue';
@@ -16,6 +24,7 @@ table 50104 "SSK Activities Cue"
             Caption = 'Primary Key';
             DataClassification = CustomerContent;
         }
+        // FlowField: Tracks count of adjustments awaiting supervisor review
         field(10; "Pending Approvals"; Integer)
         {
             Caption = 'Pending Approvals';
@@ -23,6 +32,7 @@ table 50104 "SSK Activities Cue"
             CalcFormula = count("SSK Adjustment Header" where(Status = const(PendingApproval)));
             Editable = false;
         }
+        // FlowField: Tracks count of draft adjustments currently in progress
         field(11; "Draft Adjustments"; Integer)
         {
             Caption = 'Draft Adjustments';
@@ -36,6 +46,7 @@ table 50104 "SSK Activities Cue"
             DataClassification = CustomerContent;
             Editable = false;
         }
+        // FlowField: Tracks count of items where physical inventory is zero or negative
         field(21; "Out of Stock Items"; Integer)
         {
             Caption = 'Out of Stock Items';
@@ -70,11 +81,16 @@ table 50104 "SSK Activities Cue"
         }
     }
 
+    /// <summary>
+    /// Computes non-FlowField operational metrics across items and item ledger lots.
+    /// Called OnOpenPage and during manual metric refreshes from the Activities Cue.
+    /// </summary>
     procedure CalculateCueValues()
     var
         Item: Record Item;
         ItemLedgEntry: Record "Item Ledger Entry";
     begin
+        // Count items currently operating below their minimum safety stock buffer
         "Low Stock Items" := 0;
         Item.SetRange("SSK SmartStock Managed", true);
         if Item.FindSet() then
@@ -83,12 +99,14 @@ table 50104 "SSK Activities Cue"
                     "Low Stock Items" += 1;
             until Item.Next() = 0;
 
+        // Count open lots that have already passed their expiration date
         ItemLedgEntry.Reset();
         ItemLedgEntry.SetRange(Open, true);
         ItemLedgEntry.SetRange(Positive, true);
         ItemLedgEntry.SetFilter("Expiration Date", '<>%1&<%2', 0D, Today());
         "Expired Batches" := ItemLedgEntry.Count();
 
+        // Count open lots reaching expiration within the next 30 days
         ItemLedgEntry.Reset();
         ItemLedgEntry.SetRange(Open, true);
         ItemLedgEntry.SetRange(Positive, true);

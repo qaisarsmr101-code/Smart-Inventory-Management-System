@@ -6,15 +6,29 @@ using SmartStock.Enums;
 using SmartStock.Tables;
 using System.Threading;
 
+/// <summary>
+/// Codeunit 50101 "SSK Stock Alert Mgt"
+/// ===================================
+/// Automated background monitoring engine for inventory safety stock and batch expiration.
+/// - Operates either as a scheduled background Job Queue task (TableNo = Job Queue Entry)
+///   or triggered interactively from user interfaces (Role Center, Alert Log List).
+/// - De-duplicates alerts to ensure warehouse operatives are not overwhelmed with repeated entries.
+/// </summary>
 codeunit 50101 "SSK Stock Alert Mgt"
 {
     TableNo = "Job Queue Entry";
 
     trigger OnRun()
     begin
+        // Invoked automatically when executed by the Business Central Job Queue
         RunStockMonitoring(false);
     end;
 
+    /// <summary>
+    /// Executes both low stock and batch expiration inspection routines.
+    /// </summary>
+    /// <param name="ShowSummary">Set true for interactive UI calls to display a completion dialog.</param>
+    /// <returns>Count of newly generated alert records.</returns>
     procedure RunStockMonitoring(ShowSummary: Boolean): Integer
     var
         SmartStockSetup: Record "SSK SmartStock Setup";
@@ -22,7 +36,10 @@ codeunit 50101 "SSK Stock Alert Mgt"
     begin
         SmartStockSetup.GetRecordOnce();
 
+        // 1. Inspect inventory for items falling below safety stock
         NewAlertsCount += CheckLowStockLevels(SmartStockSetup);
+
+        // 2. Inspect active lot ledger entries for expired or expiring batches
         NewAlertsCount += CheckBatchExpirations(SmartStockSetup);
 
         if ShowSummary then
@@ -31,6 +48,10 @@ codeunit 50101 "SSK Stock Alert Mgt"
         exit(NewAlertsCount);
     end;
 
+    /// <summary>
+    /// Evaluates managed items against their configured safety threshold.
+    /// Flags 'Critical' if completely out of stock; 'Warning' if below reorder threshold.
+    /// </summary>
     local procedure CheckLowStockLevels(SmartStockSetup: Record "SSK SmartStock Setup"): Integer
     var
         Item: Record Item;
@@ -44,6 +65,7 @@ codeunit 50101 "SSK Stock Alert Mgt"
                 if Item.SSKIsBelowReorderPoint() then begin
                     AvailableStock := Item.SSKCalcAvailableInventory();
 
+                    // De-duplication check: Skip if an unacknowledged alert already exists for this item
                     AlertLog.SetRange("Item No.", Item."No.");
                     AlertLog.SetRange(Acknowledged, false);
                     if AlertLog.IsEmpty() then begin
@@ -70,6 +92,11 @@ codeunit 50101 "SSK Stock Alert Mgt"
         exit(CreatedCount);
     end;
 
+    /// <summary>
+    /// Scans open positive Item Ledger Entries with an expiration date.
+    /// Creates Critical alerts for expired lots, and Warning alerts for lots expiring
+    /// within the configured horizon days (e.g. 30 days).
+    /// </summary>
     local procedure CheckBatchExpirations(SmartStockSetup: Record "SSK SmartStock Setup"): Integer
     var
         ItemLedgEntry: Record "Item Ledger Entry";
@@ -84,6 +111,7 @@ codeunit 50101 "SSK Stock Alert Mgt"
 
         HorizonDate := CalcDate(StrSubstNo('+%1D', HorizonDays), Today());
 
+        // Optimize search using primary item tracking key
         ItemLedgEntry.SetCurrentKey("Item No.", Open, "Variant Code", Positive, "Location Code", "Posting Date");
         ItemLedgEntry.SetRange(Open, true);
         ItemLedgEntry.SetRange(Positive, true);
@@ -91,6 +119,7 @@ codeunit 50101 "SSK Stock Alert Mgt"
 
         if ItemLedgEntry.FindSet() then
             repeat
+                // Condition A: Batch is already expired
                 if ItemLedgEntry."Expiration Date" < Today() then begin
                     AlertLog.SetRange("Item No.", ItemLedgEntry."Item No.");
                     AlertLog.SetRange(Severity, AlertLog.Severity::Critical);
@@ -106,6 +135,7 @@ codeunit 50101 "SSK Stock Alert Mgt"
                         AlertLog.Insert(true);
                         CreatedCount += 1;
                     end;
+                // Condition B: Batch is expiring within the warning horizon
                 end else if ItemLedgEntry."Expiration Date" <= HorizonDate then begin
                     AlertLog.SetRange("Item No.", ItemLedgEntry."Item No.");
                     AlertLog.SetRange(Severity, AlertLog.Severity::Warning);
