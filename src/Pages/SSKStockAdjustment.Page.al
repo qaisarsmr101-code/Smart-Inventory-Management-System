@@ -214,7 +214,7 @@ page 50102 "SSK Stock Adjustment"
                 Image = Print;
                 ApplicationArea = All;
                 Promoted = true;
-                PromotedCategory = "Report";
+                PromotedCategory = Report;
                 ToolTip = 'Generates an audit-ready printable report for this stock adjustment document.';
 
                 trigger OnAction()

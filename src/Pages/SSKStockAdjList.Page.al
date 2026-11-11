@@ -68,32 +68,81 @@ page 50104 "SSK Stock Adj. List"
         }
     }
 
-    views
-    {
-        view(PendingApprovalView)
-        {
-            Caption = 'Pending Approval';
-            Filters = where(Status = const(PendingApproval));
-        }
-        view(DraftView)
-        {
-            Caption = 'Drafts';
-            Filters = where(Status = const(Draft));
-        }
-        view(ApprovedView)
-        {
-            Caption = 'Ready to Post (Approved)';
-            Filters = where(Status = const(Approved));
-        }
-        view(PostedView)
-        {
-            Caption = 'Posted Archive';
-            Filters = where(Status = const(Posted));
-        }
-    }
-
     actions
     {
+        area(Processing)
+        {
+            group(FilterGroup)
+            {
+                Caption = 'Filter';
+
+                action(FilterDraft)
+                {
+                    Caption = 'Drafts';
+                    Image = FilterLines;
+                    ApplicationArea = All;
+                    ToolTip = 'Filters the list to display only draft documents.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetRange(Status, Rec.Status::Draft);
+                        CurrPage.Update(false);
+                    end;
+                }
+                action(FilterPendingApproval)
+                {
+                    Caption = 'Pending Approval';
+                    Image = SendApprovalRequest;
+                    ApplicationArea = All;
+                    ToolTip = 'Filters the list to display only documents awaiting supervisor approval.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetRange(Status, Rec.Status::PendingApproval);
+                        CurrPage.Update(false);
+                    end;
+                }
+                action(FilterApproved)
+                {
+                    Caption = 'Ready to Post';
+                    Image = Approve;
+                    ApplicationArea = All;
+                    ToolTip = 'Filters the list to display only approved documents ready for posting.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetRange(Status, Rec.Status::Approved);
+                        CurrPage.Update(false);
+                    end;
+                }
+                action(FilterPosted)
+                {
+                    Caption = 'Posted Archive';
+                    Image = Archive;
+                    ApplicationArea = All;
+                    ToolTip = 'Filters the list to display posted adjustment history.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.SetRange(Status, Rec.Status::Posted);
+                        CurrPage.Update(false);
+                    end;
+                }
+                action(ShowAll)
+                {
+                    Caption = 'Show All';
+                    Image = ClearFilter;
+                    ApplicationArea = All;
+                    ToolTip = 'Clears status filters and displays all adjustment documents.';
+
+                    trigger OnAction()
+                    begin
+                        Rec.Reset();
+                        CurrPage.Update(false);
+                    end;
+                }
+            }
+        }
         area(Reporting)
         {
             action(PrintSelected)
@@ -102,7 +151,7 @@ page 50104 "SSK Stock Adj. List"
                 Image = Print;
                 ApplicationArea = All;
                 Promoted = true;
-                PromotedCategory = "Report";
+                PromotedCategory = Report;
                 ToolTip = 'Generates an audit-ready printable report for the selected stock adjustment document.';
 
                 trigger OnAction()
