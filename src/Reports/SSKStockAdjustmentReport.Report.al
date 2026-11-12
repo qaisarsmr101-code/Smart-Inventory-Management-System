@@ -36,6 +36,11 @@ report 50100 "SSK Stock Adjustment Report"
             column(ApprovedByUserID; "Approved By User ID") { }
             column(PostingDescription; "Posting Description") { }
 
+            trigger OnAfterGetRecord()
+            begin
+                CalcFields("Total Cost Amount", "Total Quantity");
+            end;
+
             dataitem(Line; "SSK Adjustment Line")
             {
                 DataItemLink = "Document No." = field("No.");
@@ -57,12 +62,26 @@ report 50100 "SSK Stock Adjustment Report"
         }
     }
 
+    requestpage
+    {
+        layout
+        {
+            area(Content)
+            {
+                group(Options)
+                {
+                    Caption = 'Options';
+                }
+            }
+        }
+    }
+
     rendering
     {
         layout(StandardLayout)
         {
             Type = RDLC;
-            LayoutFile = './src/Reports/SSKStockAdjustment.rdlc';
+            LayoutFile = './src/Reports/SSKStockAdjustmentReport.rdlc';
             Caption = 'Standard Stock Adjustment (RDLC)';
             Summary = 'Default printable layout for SmartStock adjustment vouchers.';
         }

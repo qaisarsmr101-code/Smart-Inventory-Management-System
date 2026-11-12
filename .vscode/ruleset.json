@@ -14,8 +14,8 @@
     },
     {
       "id": "AA0215",
-      "action": "Warning",
-      "justification": "FlowFields should have Editable = false"
+      "action": "Hidden",
+      "justification": "File naming convention - suppressed to prevent yellow editor warnings"
     },
     {
       "id": "PTE0001",

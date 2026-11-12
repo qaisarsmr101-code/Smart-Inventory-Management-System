@@ -68,8 +68,8 @@ d:\inventory management system\
 │   │   └── SSKSmartStockManager.Profile.al    # SmartStock Inventory Manager profile
 │   │
 │   ├── Reports/
-│   │   ├── SSKStockAdjustment.Report.al       # Printable stock adjustment document
-│   │   └── SSKStockAdjustment.rdlc            # Standard RDLC report layout
+│   │   ├── SSKStockAdjustmentReport.Report.al # Printable stock adjustment document
+│   │   └── SSKStockAdjustmentReport.rdlc      # Standard RDLC report layout
 │   │
 │   └── Tables/
 │       ├── SSKActivitiesCue.Table.al          # Role center KPI cue table
