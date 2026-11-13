@@ -4,7 +4,7 @@ using SmartStock.Tables;
 
 page 50101 "SSK Adjustment Reasons"
 {
-    Caption = 'SmartStock Adjustment Reasons';
+    Caption = 'SmartStock Adjustment Reason';
     PageType = List;
     SourceTable = "SSK Adjustment Reason";
     UsageCategory = Administration;
@@ -21,7 +21,7 @@ page 50101 "SSK Adjustment Reasons"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the unique code for the stock adjustment reason (e.g. DAMAGE, SCRAP, COUNT).';
                 }
-                field("Description"; Rec."Description")
+                field(Description; Rec."Description")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the business description of the adjustment reason.';
