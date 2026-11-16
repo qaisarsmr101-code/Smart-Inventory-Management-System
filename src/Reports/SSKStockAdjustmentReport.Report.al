@@ -36,11 +36,6 @@ report 50100 "SSK Stock Adjustment Report"
             column(ApprovedByUserID; "Approved By User ID") { }
             column(PostingDescription; "Posting Description") { }
 
-            trigger OnAfterGetRecord()
-            begin
-                CalcFields("Total Cost Amount", "Total Quantity");
-            end;
-
             dataitem(Line; "SSK Adjustment Line")
             {
                 DataItemLink = "Document No." = field("No.");
@@ -59,6 +54,11 @@ report 50100 "SSK Stock Adjustment Report"
                 column(LotNo; "Lot No.") { }
                 column(ExpirationDate; Format("Expiration Date", 0, '<Day,2>/<Month,2>/<Year4>')) { }
             }
+
+            trigger OnAfterGetRecord()
+            begin
+                CalcFields("Total Cost Amount", "Total Quantity");
+            end;
         }
     }
 
