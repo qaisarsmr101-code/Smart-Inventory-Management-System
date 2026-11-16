@@ -92,4 +92,27 @@ tableextension 50100 "SSK Item Ext" extends Item
 
         exit(SSKCalcAvailableInventory() <= Rec."SSK Min Safety Stock");
     end;
+
+    /// <summary>
+    /// Calculates the recommended replenishment reorder quantity to restore buffer inventory.
+    /// If Max Stock Buffer is defined, targets Max Stock Buffer - Available Inventory.
+    /// Otherwise targets Min Safety Stock - Available Inventory.
+    /// </summary>
+    procedure SSKCalcSuggestedReorderQty(): Decimal
+    var
+        AvailableQty: Decimal;
+    begin
+        if not Rec."SSK SmartStock Managed" then
+            exit(0);
+
+        AvailableQty := SSKCalcAvailableInventory();
+
+        if (Rec."SSK Max Stock Buffer" > 0) and (AvailableQty < Rec."SSK Min Safety Stock") then
+            exit(Rec."SSK Max Stock Buffer" - AvailableQty);
+
+        if (Rec."SSK Min Safety Stock" > 0) and (AvailableQty < Rec."SSK Min Safety Stock") then
+            exit(Rec."SSK Min Safety Stock" - AvailableQty);
+
+        exit(0);
+    end;
 }

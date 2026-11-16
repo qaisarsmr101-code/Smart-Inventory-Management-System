@@ -12,7 +12,8 @@
 ## 🌟 Overview
 **SmartStock** is an intelligent, modern AL extension for **Microsoft Dynamics 365 Business Central**. It bridges the gap between basic out-of-the-box inventory management and complex Directed Put-Away / Pick WMS by providing:
 
-* **Real-time Safety Stock & Reorder Triggers:** Dynamic minimum and maximum buffer thresholds per item.
+* **Real-time Safety Stock & Reorder Triggers:** Dynamic minimum and maximum buffer thresholds per item with live health status (Optimal, Warning, Critical, Overstocked) and suggested reorder quantities.
+* **Item Card & List Intelligence:** In-place visibility into net available inventory, automated reorder calculation, and direct drilldown into historical alert anomaly logs.
 * **Two-Tier Stock Adjustment Workflow:** Reason-coded adjustment documents with automated supervisor approval thresholds.
 * **Audit-Safe Posting via Codeunit 22 (`Item Jnl.-Post Line`):** Strict financial and inventory ledger integrity without reinventing custom ledger tables.
 * **Real-time KPI Activities Cues & Health Dashboard:** Interactive cues tracking low-stock items, pending approvals, and expiring lots.

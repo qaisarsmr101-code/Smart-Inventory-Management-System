@@ -1,6 +1,7 @@
 namespace SmartStock.Pages;
 
 using Microsoft.Inventory.Item;
+using SmartStock.Codeunits;
 using SmartStock.Tables;
 
 pageextension 50101 "SSK Item List Ext" extends "Item List"
@@ -59,6 +60,30 @@ pageextension 50101 "SSK Item List Ext" extends "Item List"
                     begin
                         Rec.SetRange("SSK SmartStock Managed");
                         CurrPage.Update(false);
+                    end;
+                }
+                action(SSKItemAlertHistory)
+                {
+                    Caption = 'Alert History';
+                    Image = Log;
+                    ApplicationArea = All;
+                    ToolTip = 'Views the SmartStock alert history for the selected item.';
+                    RunObject = page "SSK Alert Log List";
+                    RunPageView = sorting("Item No.", "Alert DateTime");
+                    RunPageLink = "Item No." = field("No.");
+                }
+                action(SSKScanStockAnomalies)
+                {
+                    Caption = 'Scan Stock Anomalies';
+                    Image = Alerts;
+                    ApplicationArea = All;
+                    ToolTip = 'Executes an immediate background audit of inventory levels and expiring lots.';
+
+                    trigger OnAction()
+                    var
+                        AlertMgt: Codeunit "SSK Stock Alert Mgt";
+                    begin
+                        AlertMgt.RunStockMonitoring(true);
                     end;
                 }
             }
