@@ -3,6 +3,13 @@ namespace SmartStock.Pages;
 using Microsoft.Inventory.Item;
 using SmartStock.Tables;
 
+/// <summary>
+/// PageExtension 50100 "SSK Item Card Ext" extends "Item Card"
+/// =========================================================
+/// Provides inventory operatives with real-time stock health metrics,
+/// buffer threshold controls, and suggested replenishment reorder quantities.
+/// Last Updated: 2026-11-17
+/// </summary>
 pageextension 50100 "SSK Item Card Ext" extends "Item Card"
 {
     layout

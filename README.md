@@ -5,6 +5,7 @@
 ![AL Language](https://img.shields.io/badge/Language-AL-teal)
 ![Runtime](https://img.shields.io/badge/Runtime-15.0-green)
 ![Target](https://img.shields.io/badge/Target-Cloud-orange)
+![Last Updated](https://img.shields.io/badge/Last_Updated-2026--11--17-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ---
@@ -124,4 +125,11 @@ alc.exe /project:"." /packagecachepath:".\.alpackages" /out:".\SmartStock.app"
 1. Open the project folder in VS Code or Antigravity IDE.
 2. Ensure your target environment is specified in `.vscode/launch.json`.
 3. Press `F5` to start debugging or `Ctrl + F5` to run without debugging.
+
+---
+
+## 📅 Project History & Maintenance
+* **Last Updated:** November 17, 2026 (2026-11-17)
+* **Version:** 1.0.2.0
+* **Status:** Active & Production-Ready
 
